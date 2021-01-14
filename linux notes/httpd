@@ -1,0 +1,14 @@
+
+systemctl status httpd
+systemctl start httpd
+
+cd /var/www/html/
+vi index.html
+chmod 777 index.html 
+
+vi /etc/httpd/conf/httpd.conf 
+
+[root@centos httpd]#  firewall-cmd --add-service=http
+success
+[root@centos httpd]#  firewall-cmd --add-service=https  
+success
