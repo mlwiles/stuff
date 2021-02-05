@@ -1,0 +1,291 @@
+# Suggestions:
+# To get a more verbose log, run the following:
+# export TF_LOG=TRACE;export TF_LOG_PATH="/tmp/terraform.log"
+
+# Requirements:
+# vDC created with sufficient resources
+
+# Helpful Links:
+# https://www.sysadmintutorials.com/getting-started-terraform-vmware-vcloud-director/
+# https://blogs.vmware.com/cloudprovider/2019/11/terraform-vcloud-director-provider-v2-5-0-features.html
+# https://github.com/vmware/go-vcloud-director
+# https://www.terraform.io/docs/
+
+####################### VCD #######################
+# https://www.terraform.io/docs/providers/vcd/index.html
+provider "vcd" {
+  user                 = var.vcd_user
+  password             = var.vcd_password
+  auth_type            = var.vcd_auth_type
+  org                  = var.vdc_org_name
+  vdc                  = var.vdc_name
+  url                  = var.vcd_url
+  max_retry_timeout    = var.vcd_max_retry_timeout
+  allow_unverified_ssl = var.vcd_allow_unverified_ssl
+  logging              = var.vcd_logging
+  logging_file         = var.vcd_logging_file
+}
+
+####################### VAPPS #######################
+# https://www.terraform.io/docs/providers/vcd/r/vapp.html
+resource "vcd_vapp" "vapp-centos7" {
+  name = "vapp-centos7"
+  org  = var.vdc_org_name
+  vdc  = var.vdc_name
+}
+resource "vcd_vapp" "vapp-centos8" {
+  name = "vapp-centos8"
+  org  = var.vdc_org_name
+  vdc  = var.vdc_name
+}
+resource "vcd_vapp" "vapp-redhat7" {
+  name = "vapp-redhat7"
+  org  = var.vdc_org_name
+  vdc  = var.vdc_name
+}
+resource "vcd_vapp" "vapp-redhat8" {
+  name = "vapp-redhat8"
+  org  = var.vdc_org_name
+  vdc  = var.vdc_name
+}
+resource "vcd_vapp" "vapp-windows2016" {
+  name = "vapp-windows2016"
+  org  = var.vdc_org_name
+  vdc  = var.vdc_name
+}
+resource "vcd_vapp" "vapp-windows2019" {
+  name = "vapp-windows2019"
+  org  = var.vdc_org_name
+  vdc  = var.vdc_name
+}
+
+####################### VIRTUAL MACHINES #######################
+# https://www.terraform.io/docs/providers/vcd/r/vapp_vm.html
+####################### CENTOS7 #######################
+resource "vcd_vapp_vm" "vm-centos7" {
+  org                                   = var.vdc_org_name
+  vdc                                   = var.vdc_name
+  vapp_name                             = vcd_vapp.vapp-centos7.name
+  name                                  = "vm-centos7"
+  memory                                = var.vm_memory
+  cpus                                  = var.vm_cpus
+  cpu_cores                             = var.vm_cpu_cores
+  storage_profile                       = var.vm_storage_profile
+  metadata = {
+    creator                             = var.vm_metadata_creator
+    version                             = var.vm_metadata_version
+    date                                = var.vm_metadata_date
+  }
+  guest_properties = {
+    "guest.hostname" = "vm-centos7"
+  }
+  customization {
+    force                               = var.vm_customization_force
+    change_sid                          = var.vm_customization_change_sid
+    allow_local_admin_password          = var.vm_customization_allow_local_admin_password
+    admin_password                      = "" 
+    auto_generate_password              = true
+    must_change_password_on_first_login = var.vm_customization_must_change_password_on_first_login
+    initscript                          = "" 
+  }
+  network {
+    name                                = "none"
+    type                                = "none"
+    ip_allocation_mode                  = "NONE"
+    is_primary                          = var.vm_network_is_primary
+    adapter_type                        = var.vm_network_adapter_type
+  }
+  catalog_name                          = var.vm_catalog_name
+  template_name                         = var.vm_template_name
+  power_on                              = false
+}
+####################### CENTOS8 #######################
+resource "vcd_vapp_vm" "vm-centos8" {
+  org                                   = var.vdc_org_name
+  vdc                                   = var.vdc_name
+  vapp_name                             = vcd_vapp.vapp-centos8.name
+  name                                  = "vm-centos8"
+  memory                                = var.vm_memory
+  cpus                                  = var.vm_cpus
+  cpu_cores                             = var.vm_cpu_cores
+  storage_profile                       = var.vm_storage_profile
+  metadata = {
+    creator                             = var.vm_metadata_creator
+    version                             = var.vm_metadata_version
+    date                                = var.vm_metadata_date
+  }
+  guest_properties = {
+    "guest.hostname" = "vm-centos8"
+  }
+  customization {
+    force                               = var.vm_customization_force
+    change_sid                          = var.vm_customization_change_sid
+    allow_local_admin_password          = var.vm_customization_allow_local_admin_password
+    admin_password                      = "" 
+    auto_generate_password              = true
+    must_change_password_on_first_login = var.vm_customization_must_change_password_on_first_login
+    initscript                          = "" 
+  }
+  network {
+    name                                = "none"
+    type                                = "none"
+    ip_allocation_mode                  = "NONE"
+    is_primary                          = var.vm_network_is_primary
+    adapter_type                        = var.vm_network_adapter_type
+  }
+  catalog_name                          = var.vm_catalog_name
+  template_name                         = "CentOS-8-Template-Official"
+  power_on                              = false
+}
+####################### REDHAT7 #######################
+resource "vcd_vapp_vm" "vm-redhat7" {
+  org                                   = var.vdc_org_name
+  vdc                                   = var.vdc_name
+  vapp_name                             = vcd_vapp.vapp-redhat7.name
+  name                                  = "vm-redhat7"
+  memory                                = var.vm_memory
+  cpus                                  = var.vm_cpus
+  cpu_cores                             = var.vm_cpu_cores
+  storage_profile                       = var.vm_storage_profile
+  metadata = {
+    creator                             = var.vm_metadata_creator
+    version                             = var.vm_metadata_version
+    date                                = var.vm_metadata_date
+  }
+  guest_properties = {
+    "guest.hostname" = "vm-redhat7"
+  }
+  customization {
+    force                               = var.vm_customization_force
+    change_sid                          = var.vm_customization_change_sid
+    allow_local_admin_password          = var.vm_customization_allow_local_admin_password
+    admin_password                      = "" 
+    auto_generate_password              = true
+    must_change_password_on_first_login = var.vm_customization_must_change_password_on_first_login
+    initscript                          = "" 
+  }
+  network {
+    name                                = "none"
+    type                                = "none"
+    ip_allocation_mode                  = "NONE"
+    is_primary                          = var.vm_network_is_primary
+    adapter_type                        = var.vm_network_adapter_type
+  }
+  catalog_name                          = var.vm_catalog_name
+  template_name                         = "RedHat-7-Template-Official"
+  power_on                              = false
+}
+####################### REDHAT8 #######################
+resource "vcd_vapp_vm" "vm-redhat8" {
+  org                                   = var.vdc_org_name
+  vdc                                   = var.vdc_name
+  vapp_name                             = vcd_vapp.vapp-redhat8.name
+  name                                  = "vm-redhat8"
+  memory                                = var.vm_memory
+  cpus                                  = var.vm_cpus
+  cpu_cores                             = var.vm_cpu_cores
+  storage_profile                       = var.vm_storage_profile
+  metadata = {
+    creator                             = var.vm_metadata_creator
+    version                             = var.vm_metadata_version
+    date                                = var.vm_metadata_date
+  }
+  guest_properties = {
+    "guest.hostname" = "vm-redhat8"
+  }
+  customization {
+    force                               = var.vm_customization_force
+    change_sid                          = var.vm_customization_change_sid
+    allow_local_admin_password          = var.vm_customization_allow_local_admin_password
+    admin_password                      = "" 
+    auto_generate_password              = true
+    must_change_password_on_first_login = var.vm_customization_must_change_password_on_first_login
+    initscript                          = "" 
+  }
+  network {
+    name                                = "none"
+    type                                = "none"
+    ip_allocation_mode                  = "NONE"
+    is_primary                          = var.vm_network_is_primary
+    adapter_type                        = var.vm_network_adapter_type
+  }
+  catalog_name                          = var.vm_catalog_name
+  template_name                         = "RedHat-8-Template-Official"
+  power_on                              = false
+}
+####################### WINDOWS2016 #######################
+resource "vcd_vapp_vm" "vm-windows2016" {
+  org                                   = var.vdc_org_name
+  vdc                                   = var.vdc_name
+  vapp_name                             = vcd_vapp.vapp-windows2016.name
+  name                                  = "vm-windows2016"
+  memory                                = var.vm_memory
+  cpus                                  = var.vm_cpus
+  cpu_cores                             = var.vm_cpu_cores
+  storage_profile                       = var.vm_storage_profile
+  metadata = {
+    creator                             = var.vm_metadata_creator
+    version                             = var.vm_metadata_version
+    date                                = var.vm_metadata_date
+  }
+  guest_properties = {
+    "guest.hostname" = "vm-windows2016"
+  }
+  customization {
+    force                               = var.vm_customization_force
+    change_sid                          = var.vm_customization_change_sid
+    allow_local_admin_password          = var.vm_customization_allow_local_admin_password
+    admin_password                      = "" 
+    auto_generate_password              = true
+    must_change_password_on_first_login = var.vm_customization_must_change_password_on_first_login
+    initscript                          = "" 
+  }
+  network {
+    name                                = "none"
+    type                                = "none"
+    ip_allocation_mode                  = "NONE"
+    is_primary                          = var.vm_network_is_primary
+    adapter_type                        = var.vm_network_adapter_type
+  }
+  catalog_name                          = var.vm_catalog_name
+  template_name                         = "Windows-2016-Template-Official"
+  power_on                              = false
+}
+####################### WINDOWS2019 #######################
+resource "vcd_vapp_vm" "vm-windows2019" {
+  org                                   = var.vdc_org_name
+  vdc                                   = var.vdc_name
+  vapp_name                             = vcd_vapp.vapp-windows2019.name
+  name                                  = "vm-windows2019"
+  memory                                = var.vm_memory
+  cpus                                  = var.vm_cpus
+  cpu_cores                             = var.vm_cpu_cores
+  storage_profile                       = var.vm_storage_profile
+  metadata = {
+    creator                             = var.vm_metadata_creator
+    version                             = var.vm_metadata_version
+    date                                = var.vm_metadata_date
+  }
+  guest_properties = {
+    "guest.hostname" = "vm-windows2019"
+  }
+  customization {
+    force                               = var.vm_customization_force
+    change_sid                          = var.vm_customization_change_sid
+    allow_local_admin_password          = var.vm_customization_allow_local_admin_password
+    admin_password                      = "" 
+    auto_generate_password              = true
+    must_change_password_on_first_login = var.vm_customization_must_change_password_on_first_login
+    initscript                          = "" 
+  }
+  network {
+    name                                = "none"
+    type                                = "none"
+    ip_allocation_mode                  = "NONE"
+    is_primary                          = var.vm_network_is_primary
+    adapter_type                        = var.vm_network_adapter_type
+  }
+  catalog_name                          = var.vm_catalog_name
+  template_name                         = "Windows-2019-Template-Official"
+  power_on                              = false
+}

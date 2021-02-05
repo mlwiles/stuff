@@ -166,9 +166,9 @@ variable "vm_customization_admin_password" {
   description = "If using OS Customization, enable administrator password?"
   default = "my-os-customized-passwd"
 }
-variable "vm_customization_initscript" {
+variable "vm_customization_redhat_activation_key" {
   type = string
-  description = "If using OS Customization, script to run at initialization?"
+  description = "Red Hat activation team"
   default = ""
 }
 variable "vm_customization_must_change_password_on_first_login" {
@@ -227,7 +227,7 @@ variable "vcd_network_routed_network_definition" {
 ####################### vm network #######################
 variable "vm_network_type" {
   type = string
-  description = "type of network: org, shared"
+  description = "type of network: none, org, shared"
   default = "org"
 }
 variable "vm_network_ip_allocation_mode" {
