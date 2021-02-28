@@ -20,7 +20,7 @@ vdc_catalog_name = "REPLACE_VCD_CATALOG_NAME_HERE"
 
 ####################### virtual machine #######################
 vm_metadata_creator = "IBM VMWare Solutions"
-vm_metadata_version = "v.automation"
+vm_metadata_version = "v.automation-test"
 vm_metadata_date    = "REPLACE_VM_METADATA_DATE_HERE"
 vm_power_on         = true
 
@@ -31,11 +31,11 @@ vm_customization_admin_password                      = "REPLACE_VM_CUSTOMIZATION
 vm_customization_must_change_password_on_first_login = false
 
 ####################### vcd routed network #######################
-vcd_network_routed_name                         = "template-network"
-vcd_network_routed_gateway                      = "192.168.10.1"
+vcd_network_routed_name                         = "template-test-network"
+vcd_network_routed_gateway                      = "192.168.20.1"
 vcd_network_routed_netmask                      = "255.255.255.0"
-vcd_network_routed_static_ip_pool_start_address = "192.168.10.2"
-vcd_network_routed_static_ip_pool_end_address   = "192.168.10.100"
-vcd_network_routed_network_definition           = "192.168.10.1/24"
+vcd_network_routed_static_ip_pool_start_address = "192.168.20.2"
+vcd_network_routed_static_ip_pool_end_address   = "192.168.20.100"
+vcd_network_routed_network_definition           = "192.168.20.1/24"
 
 ####################### vm network #######################
