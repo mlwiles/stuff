@@ -1,0 +1,17 @@
+============Linux Installing SSD============
+If LUKS is enabled on an image, you will be prompted for passphrase every reboot
+To get around this, create a keyfile and associate it with each device / LUKS vg, partition, etc
+ 
+============Linux LUKS prompting============
+Step 1: Create a random keyfile
+dd if=/dev/urandom of=/root/keyfile bs=1024 count=4
+
+Step 2: Make the keyfile read-only to root
+chmod 0400 /root/keyfile
+
+Step 3: Add the keyfile to LUKS
+cryptsetup luksAddKey /dev/sdX /root/keyfile
+
+Step 4: Create a mapper
+vi /etc/crypttab
+sdX_crypt      /dev/sdX  /root/keyfile  luks

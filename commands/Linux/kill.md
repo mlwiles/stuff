@@ -1,0 +1,2 @@
+#kill all cisco webex processes
+ps -ef | grep -i cisco | grep -i webex | grep -v grep | awk '{ print $2 }' | xargs kill -9

@@ -1,0 +1,21 @@
+============setup drive for MQ============
+fdisk -l
+mkfs.ext4 /dev/sde
+mount -t ext4 /dev/sde /mqlogs
+mkdir /mqlogging
+mkdir /mqlogging/mqm
+
+vi /var/mqm/qmgrs/CFQM/qm.ini
+   LogPath=/mqlogging/mqm/CFQM/
+
+mkdir /mqlogging/mqm/CFQM
+chown -R mqm:mqm /mqlogging/mqm
+mount -t ext4 /dev/sde /mqlogging/
+
+vi /etc/fstab
+   /dev/sdd /mqlogging ext4 defaults 1 1
+
+
+
+
+ 

@@ -1,0 +1,8 @@
+swapoff -a
+free
+lvremove /dev/centos/swap
+vi /etc/default/grub
+    GRUB_CMDLINE_LINUX="crashkernel=auto rd.lvm.lv=centos/root rd.lvm.lv=centos/usr rhgb quiet"
+grub2-mkconfig -o /boot/grub2/grub.cfg
+
+reboot
