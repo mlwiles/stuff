@@ -1,0 +1,8 @@
+# ==================================================
+#    secure copy
+# ==================================================
+scp <username>@<sourceAddress>:/<path>/<files> /<destination>
+scp root@1.1.1.1:/etc/yum.repos.d/Cent* /etc/yum.repos.d/
+
+scp /<path>/<files>  <username>@<destinationAddress>:/<destination>
+scp /etc/yum.repos.d/ root@1.1.1.1:/etc/yum.repos.d/Cent*

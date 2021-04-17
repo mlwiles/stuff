@@ -1,7 +1,6 @@
 # ==================================================
 #    list firewall rules
 # ==================================================
-
 firewall-cmd --list-all
 public (active)
   target: default
@@ -16,13 +15,10 @@ public (active)
   source-ports: 
   icmp-blocks: 
   rich rules: 
-
-
-
+  
 # ==================================================
 #    ADD HTTP/HTTPS
 # ==================================================
-
 [root@centos ~]# firewall-cmd --zone=public --add-service=http
 success
 [root@centos ~]# firewall-cmd --zone=public --add-service=https

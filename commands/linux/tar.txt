@@ -1,0 +1,5 @@
+# ==================================================
+#    list files from a compressed tar file
+# ==================================================
+tar -ztvf archive.tar.gz
+tar -zxf archive.tar.gz ./path/to/file.inside

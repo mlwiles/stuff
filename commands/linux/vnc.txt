@@ -1,10 +1,7 @@
 # ==================================================
 #    https://www.krizna.com/centos/setup-vnc-server-centos-8-rhel-8/
 # ==================================================
-
-
 dnf update -y
-
 dnf groupinstall "Server with GUI" -y
 
 /etc/gdm/custom.conf” and uncomment following line to disable Wayland.
@@ -15,7 +12,6 @@ systemctl isolate graphical.target
 # ==================================================
 #    https://linuxize.com/post/how-to-install-and-configure-vnc-on-centos-8/
 # ==================================================
-
 cd /var/log
 cat messages 
 

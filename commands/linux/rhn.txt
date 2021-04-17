@@ -1,7 +1,6 @@
 # ==================================================
 #    RHN
 # ==================================================
-
 # Reconfigure your RHEL system to use the IBM internal Red Hat Satellite server by running the following command as root (it's a capital O, not a zero):
 wget -qO- --no-check-certificate https://rhn.linux.ibm.com/pub/bootstrap/bootstrap.sh | /bin/bash
 

@@ -1,8 +1,6 @@
 # UPDATE ALL 
 yum update all
 
-
-
 # CLEANUP LINUX TEMPLATES
 yum clean all
 find /var/log -type f -exec truncate --size 0 "{}" \;
