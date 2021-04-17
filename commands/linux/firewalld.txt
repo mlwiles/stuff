@@ -1,0 +1,21 @@
+firewall-cmd --list-all
+public (active)
+  target: default
+  icmp-block-inversion: no
+  interfaces: wlp2s0
+  sources: 
+  services: cockpit dhcpv6-client mountd nfs rpc-bind smtp ssh vnc-server
+  ports: 
+  protocols: 
+  masquerade: no
+  forward-ports: 
+  source-ports: 
+  icmp-blocks: 
+  rich rules: 
+
+
+ADD HTTP/HTTPS
+[root@centos ~]# firewall-cmd --zone=public --add-service=http
+success
+[root@centos ~]# firewall-cmd --zone=public --add-service=https
+success
