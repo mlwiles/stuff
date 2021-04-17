@@ -1,8 +1,8 @@
 #!/usr/bin/perl
 
-#mwiles@us.ibm.com - 2018-09-13
-#this is used to collect data for process and also create a file if certain
-#CPU percentage is passed
+# mwiles@us.ibm.com - 2018-09-13
+# this is used to collect data for process and also create a file if certain
+# CPU percentage is passed
 
 sub getLoggingTime {
     ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst)=localtime(time);

@@ -12,24 +12,24 @@ cd /etc/yum.repos.d/
 vi mgmtzone.repo
 [CentOS_Base]
 name=CentOS Base
-baseurl=http://lnxreposrv/repos/centos/7/base/
+baseurl=http://hostname/repos/centos/7/base/
 gpgcheck=0
 enabled=1
 [CentOS_Extras]
 name=CentOS Extras
-baseurl=http://lnxreposrv/repos/centos/7/extras/
+baseurl=http://hostname/repos/centos/7/extras/
 gpgcheck=0
 enabled=1
 [CentOS_Updates]
 name=CentOS Updates
-baseurl=http://lnxreposrv/repos/centos/7/updates/
+baseurl=http://hostname/repos/centos/7/updates/
 gpgcheck=0
 enabled=1
 
 vi docker-ce.repo
 [docker-ce-stable]
 name=Docker CE Stable - $basearch
-baseurl=http://lnxreposrv/repos/docker-ce/docker-ce-stable
+baseurl=http://hostname/repos/docker-ce/docker-ce-stable
 enabled=1
 gpgcheck=0
 
@@ -37,6 +37,6 @@ vi kubernetes.repo
 [kubernetes]
 name=Kubernetes
 #baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64/
-baseurl=http://lnxreposrv/repos/kubernetes/kubernetes
+baseurl=http://hostname/repos/kubernetes/kubernetes
 enabled=1
 gpgcheck=0

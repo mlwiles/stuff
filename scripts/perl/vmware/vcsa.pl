@@ -1,3 +1,5 @@
+#!/usr/bin/perl
+
 use REST::Client;
 use JSON;
 # Data::Dumper makes it easy to see what the JSON returned actually looks like 
@@ -7,7 +9,7 @@ use MIME::Base64;
 
 $ENV{'PERL_LWP_SSL_VERIFY_HOSTNAME'} = 0;
 
-my $username = 'mwiles@fss.ibm.com';
+my $username = 'mwiles@us.ibm.com';
 my $password = 'REDACTED';
 my $base64 = encode_base64($username . ':' . $password);
 print "Base64:" . $base64 . "\n";

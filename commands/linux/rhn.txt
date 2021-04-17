@@ -24,5 +24,5 @@ Retrieving http://rhn.linux.ibm.com/pub/rhn-org-trusted-ssl-cert-1.0-10.noarch.r
 Preparing...                ##################################################
 -bootstrap complete-
 
-Register your RHEL system by running the following command as root and using your Enterprise Linux FTP user id (the same as your intranet id) and password:
-rhnreg_ks --force --username=user@<cc>.ibm.com --password=your_ftp3_passwd
+# Register your RHEL system by running the following command as root and using your Enterprise Linux FTP user id (the same as your intranet id) and password:
+rhnreg_ks --force --username=mwiles@us.ibm.com --password=<your_ftp3_passwd>

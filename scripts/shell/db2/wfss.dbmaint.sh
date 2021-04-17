@@ -9,7 +9,6 @@
 # Optional:
 #   -r: reorg threshold in MB (only reorg tables below this size, default 100MB)
 
-
 DBNAME=COGKYCDB
 SCHEMAS=
 DBUSER=
