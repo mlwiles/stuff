@@ -1,10 +1,13 @@
-============RHN============
-Reconfigure your RHEL system to use the IBM internal Red Hat Satellite server by running the following command as root (it's a capital O, not a zero):
+# ==================================================
+#    RHN
+# ==================================================
+
+# Reconfigure your RHEL system to use the IBM internal Red Hat Satellite server by running the following command as root (it's a capital O, not a zero):
 wget -qO- --no-check-certificate https://rhn.linux.ibm.com/pub/bootstrap/bootstrap.sh | /bin/bash
 
-The bootstrap.sh script is used to quickly setup your RHEL system so that updates are pulled from the IBM Internal Red Hat Satellite. This script makes changes to the /etc/sysconfig/rhn/up2date config file and installs the public SSL certificate used by the rhn.linux.ibm.com server.
+# The bootstrap.sh script is used to quickly setup your RHEL system so that updates are pulled from the IBM Internal Red Hat Satellite. This script makes changes to the /etc/sysconfig/rhn/up2date config file and installs the public SSL certificate used by the rhn.linux.ibm.com server.
 
-If the previous command was successful, you should see an output similar to the following:
+# If the previous command was successful, you should see an output similar to the following:
 
 [root@ltcinfrastructure ~]# wget -qO- --no-check-certificate https://rhn.linux.ibm.com/pub/bootstrap/bootstrap.sh | /bin/bash
 RHN Satellite Server Client bootstrap script v4.0

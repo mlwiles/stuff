@@ -1,4 +1,7 @@
-https://www.krizna.com/centos/setup-vnc-server-centos-8-rhel-8/
+# ==================================================
+#    https://www.krizna.com/centos/setup-vnc-server-centos-8-rhel-8/
+# ==================================================
+
 
 dnf update -y
 
@@ -9,7 +12,10 @@ WaylandEnable=false
 
 systemctl isolate graphical.target
 
-https://linuxize.com/post/how-to-install-and-configure-vnc-on-centos-8/
+# ==================================================
+#    https://linuxize.com/post/how-to-install-and-configure-vnc-on-centos-8/
+# ==================================================
+
 cd /var/log
 cat messages 
 

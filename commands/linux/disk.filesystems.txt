@@ -1,22 +1,28 @@
 
+
+# ==================================================
+#    secure copy
+# ==================================================
+
 scp <username>@<sourceAddress>:/<path>/<files> /<destination>
-scp root@10.170.173.116:/etc/yum.repos.d/Cent* /etc/yum.repos.d/
+scp root@1.1.1.1:/etc/yum.repos.d/Cent* /etc/yum.repos.d/
 
 scp /<path>/<files>  <username>@<destinationAddress>:/<destination>
 scp /etc/yum.repos.d/ root@1.1.1.1:/etc/yum.repos.d/Cent*
 
 
-==================================================
-   requirements for NFS
-==================================================
+# ==================================================
+#    requirements for NFS
+# ==================================================
+
 yum install nfs-utils
 mkdir /fcdd
 vi /etc/fstab
 regions-backend-nfssrv:/fcdd /fcdd              nfs     defaults        0 0
 
-==================================================
-   Add Disk - LVM
-==================================================
+# ==================================================
+#    Add Disk - LVM
+# ==================================================
 From VMWARE - Add disk (200G Thin provisioned)
 fdisk -l
 fdisk /dev/sdb
@@ -38,9 +44,9 @@ lvcreate -L 50G -n kubelet datavg  (create new logical volume in the new volume 
 lvdisplay
 
 
-==================================================
-   Add Disk - Linux
-==================================================
+# ==================================================
+#    Add Disk - Linux
+# ==================================================
 From VMWARE - Add disk (200G Thin provisioned)
 fdisk -l
 fdisk /dev/sdb
@@ -53,8 +59,8 @@ partprobe
 mkfs.xfs -n ftype=1 /dev/mapper/centos-docker
 
 
-==================================================
-   extend a volume group
-==================================================
+# ==================================================
+#    extend a volume group
+# ==================================================
 lvextend -L 5G /dev/centos/root
 xfs_growfs /

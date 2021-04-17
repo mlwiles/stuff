@@ -1,4 +1,7 @@
-============setup drive for MQ============
+# ==================================================
+#    setup drive for MQ
+# ==================================================
+
 fdisk -l
 mkfs.ext4 /dev/sde
 mount -t ext4 /dev/sde /mqlogs
