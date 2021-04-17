@@ -14,8 +14,3 @@ mount -t ext4 /dev/sde /mqlogging/
 
 vi /etc/fstab
    /dev/sdd /mqlogging ext4 defaults 1 1
-
-
-
-
- 
