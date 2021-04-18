@@ -8,8 +8,12 @@ find . -type f -exec grep -H 'texttosearchfor' {} \;
 # ==================================================
 find . -type f -name "*" -newermt 2018-04-01 ! -newermt 2018-04-30
 
+# ==================================================
+#    find files by extension
+# ==================================================
+find . -type f -name "*.jdk"
 
-
-
-
-
+# ==================================================
+#    supress permission denied messages
+# ==================================================
+find . -type f -name "*.jdk" 2> /dev/null
