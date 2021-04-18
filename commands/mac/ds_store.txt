@@ -1,6 +1,7 @@
 # ==================================================
 #    cleanup the .DS_Store files
 # ==================================================
-#In the command line, cd to/your/directory
+# Desktop Services Store
+# In the command line, cd to/your/directory
 find . -name '.DS_Store' -type f -delete
 
