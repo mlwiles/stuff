@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 
 ###############################
-# mwiles@us.ibm.com
+# Michael Wiles - mwiles@us.ibm.com
 #
 ### CHANGE LOG ###
 # 2017/07/31 - version1

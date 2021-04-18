@@ -1,5 +1,9 @@
 #!/usr/bin/perl
 
+# Michael Wiles - mwiles@us.ibm.com
+# 2018/06/10
+# vCenter comms
+
 use REST::Client;
 use JSON;
 # Data::Dumper makes it easy to see what the JSON returned actually looks like 

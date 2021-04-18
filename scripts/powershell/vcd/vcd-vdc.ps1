@@ -2,6 +2,10 @@
 #https://code.vmware.com/docs/10197/cmdlet-reference
 #https://pubs.vmware.com/vsphere-51/index.jsp?topic=%2Fcom.vmware.powercli.cmdletref.doc%2FGet-ExternalNetwork.html
 
+# Michael Wiles - mwiles@us.ibm.com
+# 2020/10/12
+# VCD investigations
+
 try {
    . ("C:\Users\mwiles\Desktop\Get-IpRange.ps1")
 }

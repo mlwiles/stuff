@@ -3,6 +3,10 @@
 ########################################################################################################################
 # https://code.vmware.com/samples/1166/powercli-script-to-create-a-vm-in-vcd-using-a-template
 
+# Michael Wiles - mwiles@us.ibm.com
+# 2020/10/12
+# VCD investigations
+
 #Setting up the powercli environment
 C:\"Program Files (x86)"\VMware\Infrastructure\"vSphere PowerCLI"\Scripts\Initialize-PowerCLIEnvironment.ps1
 

@@ -1,3 +1,7 @@
+// Michael Wiles - mwiles@us.ibm.com
+// 2020-10-12
+// Clean up Cloud Object Storage delete - recurrsively 
+
 package main
 
 import (

@@ -3,6 +3,10 @@
 # https://code.vmware.com/docs/4721/cmdlet-reference
 # Connecting to the CI Server
 
+# Michael Wiles - mwiles@us.ibm.com
+# 2020/10/12
+# VCD investigations
+
 $templateOrg = "TemplateCurationOrg"
 $templateOrgVdc = "TemplateCurationVdc"
 

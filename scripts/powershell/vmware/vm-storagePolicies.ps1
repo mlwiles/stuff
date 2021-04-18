@@ -1,3 +1,7 @@
+# Michael Wiles - mwiles@us.ibm.com
+# 2020/11/19
+# VM Storage Profiles
+
 $connectedVCSA = Connect-VIServer -Server "vcenter-sdalha1m01.st.dir" -User "ID" -Password "PWD"
 $datacenterList=Get-Datacenter -Server $connectedVCSA | Sort-Object -Property Name
 foreach ($datacenter in $datacenterList)

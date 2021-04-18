@@ -5,7 +5,6 @@
 # 2017/07/31 - version1
 # 2017/10/04 - version2 - cleanup
 
-
 ### PURPOSE ###  
 # script to create windows users and assign to groups
 
@@ -34,14 +33,12 @@
 $WFSSUsers = @(("jaylani-wfss", "Jaylani", "Sharif", "jaylani@us.ibm.com","REDACTED"), 
 ("mwiles-wfss", "Mike", "Wiles", "mwiles@us.ibm.com","REDACTED"))
 
-			 
 $WFSSPassword = "REDACTED"   ### NOTE ### the characters escaped in the password
 $WFSSDescription = "User created for Walls Fargo"
 $WindowsGroups = @("Users", "Remote Desktop Users")
 ####################################
 ###  EDIT ABOVE HERE FOR USERS  ####
 ####################################
-
 
 # ADS_USER_FLAG_ENUM Enumeration
 # http://msdn.microsoft.com/en-us/library/aa772300(VS.85).aspx

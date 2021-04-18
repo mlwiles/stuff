@@ -1,3 +1,7 @@
+# Michael Wiles - mwiles@us.ibm.com
+# 2020/10/12
+# Veeam SOBR - CopyMode
+
 Add-PSSnapin veeampssnapin
 Connect-VBRServer -Server "HOSTNAME"
 
