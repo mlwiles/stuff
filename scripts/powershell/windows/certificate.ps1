@@ -1,4 +1,20 @@
-
+<# 
+.SYNOPSIS 
+ 
+ 
+.DESCRIPTION 
+ 
+ 
+.NOTES 
+┌─────────────────────────────────────────────────────────────────────────────────────────────┐ 
+│ ORIGIN STORY                                                                                │ 
+├─────────────────────────────────────────────────────────────────────────────────────────────┤ 
+│   DATE        : 2021-02-03
+│   AUTHOR      : Michael Wiles (mwiles@us.ibm.com) 
+│   DESCRIPTION : Certificate generation for SMTP
+└─────────────────────────────────────────────────────────────────────────────────────────────┘
+ 
+#>
 
 #Create Cert
 $servercert=New-SelfSignedCertificate  `

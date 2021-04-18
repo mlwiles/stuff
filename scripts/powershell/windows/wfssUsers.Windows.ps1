@@ -1,10 +1,10 @@
-###############################
-# mwiles@us.ibm.com
-#
-### CHANGE LOG ###
+<# 
+.SYNOPSIS 
 # 2017/07/31 - version1
-# 2017/10/04 - version2 - cleanup
-
+# 2017/10/04 - version2 - cleanup 
+ 
+.DESCRIPTION 
+ 
 ### PURPOSE ###  
 # script to create windows users and assign to groups
 
@@ -26,6 +26,17 @@
 # 5) from PS prompt enter the following command: 
 #    -- PSPrompt> <scriptName>.ps1
 ###############################
+
+.NOTES 
+┌─────────────────────────────────────────────────────────────────────────────────────────────┐ 
+│ ORIGIN STORY                                                                                │ 
+├─────────────────────────────────────────────────────────────────────────────────────────────┤ 
+│   DATE        : 
+│   AUTHOR      : Michael Wiles (mwiles@us.ibm.com) 
+│   DESCRIPTION : 
+└─────────────────────────────────────────────────────────────────────────────────────────────┘
+ 
+#>
 
 ####################################
 ###  EDIT BELOW HERE FOR USERS  ####

@@ -1,0 +1,6 @@
+# https://forums.veeam.com/vmware-vsphere-f24/repeted-vddk-error-1-and-2-t32723.html
+
+esxcfg-advcfg -g /BufferCache/MaxCapacity
+esxcfg-advcfg -g /BufferCache/FlushInterval
+esxcfg-advcfg -s 32768 /BufferCache/MaxCapacity
+esxcfg-advcfg -s 20000 /BufferCache/FlushInterval
