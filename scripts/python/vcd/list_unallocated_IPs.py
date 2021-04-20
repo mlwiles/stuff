@@ -11,7 +11,7 @@
 # 	- Must be able to access host listed below
 
 # To run:
-#	- From command line, `python3 list_IP_staging.py`
+#	- From command line, `python3 list_unallocated_IPs.py`
 # Expected output:
 #	List of Allocated IPs
 #	List of Provisioned IPs
@@ -56,7 +56,6 @@ sysorg = 'System'
 client = Client(host, verify_ssl_certs=False)
 client.set_highest_supported_version()
 client.set_credentials(BasicLoginCredentials(sysusr, sysorg, syspwd))
-# added code from create_esg.py
 
 # get admin users xml view of Director
 admin_user_xml = client.get_admin()
