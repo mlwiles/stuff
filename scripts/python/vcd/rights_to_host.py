@@ -5,7 +5,7 @@
 # 	- Must be able to access host listed below
 
 # To run:
-#	- From command line, `python3 rights_to_list.py`
+#	- From command line, `python3 rights_to_host.py`
 # Expected output:
 #	csv ouput of rights
 # 
@@ -53,50 +53,9 @@ def login(rootURL):
 
     return client, bearerToken
 
-def get_rights(rootURL, bearerToken, client, context):
-    # get list of rights bundles
-    url = '{0}/cloudapi/1.0.0/{1}?page=1&pageSize=25'.format(rootURL,context)
-    headers = { 'Authorization' : bearerToken, 'Accept' : 'application/json;version=34.0' }
-    response = client.request("GET", url, headers=headers)
-    # parse the response
-    data = json.loads(response._body.decode('UTF-8'))
-
-    # find the default bundle
-    for x in range(len(data['values'])):
-        print(f"{x+1}: {data['values'][x]['name']}")
-    number = int(input("Which item do you want to view: ")) 
-    print()
-
-    encid = requote_uri(data['values'][number-1]['id'])
-    
-    pagecount = 1
-    page = 1
-    rights_list = []
-    while(page):
-        # get the rights from the bundle
-        url = '{0}/cloudapi/1.0.0/{1}/{2}/rights?page={3}&pageSize=125'.format(rootURL,context,encid,page)
-        headers = { 'Authorization' : bearerToken, 'Accept' : 'application/json;version=34.0' }
-        response = client.request("GET", url, headers=headers)
-        data = json.loads(response._body.decode('UTF-8'))
-        pagecount = data['pageCount']
-        page = data['page']
-        
-        # get the rights
-        for i in data['values']:
-            name = i['name']
-            name = name.replace(",", "")
-            name = name.replace(": ", ",")
-            right = "{0},{1}".format(i['id'],name)
-            rights_list.append(right)
-        if page == pagecount:
-            page = 0
-        else:
-            page += 1
-
-    # sort and print out the rights
-    rights_list.sort()
-    print(*rights_list, sep = "\n")
-    print(len(rights_list))
+def check_rights(rootURL, bearerToken, client, context):
+    print("read in file")
+    print("traverse list in file and enable the right")
 
 def main():
     client, bearerToken = login(rootURL)
@@ -104,11 +63,13 @@ def main():
     print(f'2: Global Roles')
     whichone = int(input("Rights Bundles or Global Roles: "))
     print()
-
+    
     if whichone == 1:
-        get_rights(rootURL, bearerToken, client, "rightsBundles")
+        check_rights(rootURL, bearerToken, client, "rightsBundles")
     else:
-        get_rights(rootURL, bearerToken, client, "globalRoles")
+        check_rights(rootURL, bearerToken, client, "globalRoles")
 
+    inputfile = int(input("Path to Rights input: "))
+    
 if __name__ == '__main__':
     main()

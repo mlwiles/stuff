@@ -9,7 +9,8 @@
 # Expected output:
 #	csv ouput of rights
 # 
-import certifi, urllib3, json
+import requests, certifi, urllib, urllib3, json
+from requests.auth import HTTPDigestAuth
 from base64 import b64encode
 from requests.utils import requote_uri
 
@@ -53,7 +54,7 @@ def login(rootURL):
 
     return client, bearerToken
 
-def get_rights(rootURL, bearerToken, client, context):
+def check_rights(rootURL, bearerToken, client, context):
     # get list of rights bundles
     url = '{0}/cloudapi/1.0.0/{1}?page=1&pageSize=25'.format(rootURL,context)
     headers = { 'Authorization' : bearerToken, 'Accept' : 'application/json;version=34.0' }
@@ -104,11 +105,13 @@ def main():
     print(f'2: Global Roles')
     whichone = int(input("Rights Bundles or Global Roles: "))
     print()
+    inputfile = int(input("Path to Rights input: "))
+    
 
     if whichone == 1:
-        get_rights(rootURL, bearerToken, client, "rightsBundles")
+        check_rights(rootURL, bearerToken, client, "rightsBundles")
     else:
-        get_rights(rootURL, bearerToken, client, "globalRoles")
+        check_rights(rootURL, bearerToken, client, "globalRoles")
 
 if __name__ == '__main__':
     main()
