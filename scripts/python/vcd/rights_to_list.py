@@ -1,4 +1,4 @@
-# 04/19/2021
+# 04/21/2021
 
 # Prerequisites:
 #	- Must have python3 installed
@@ -19,73 +19,97 @@ host_list = [
     'https://fradir01.vmware-solutions.cloud.ibm.com',
     'https://sdaldir01.vmware-solutions.cloud.ibm.com',
     'https://sdaldir02.vmware-solutions.cloud.ibm.com',
-    'https://ssao01dir01.vmware-solutions.cloud.ibm.com'
+    'https://swdcdir01.vmware-solutions.cloud.ibm.com'
 ]
 for index in range(len(host_list)):
     print(f'{index+1}: {host_list[index]}')
-number = int(input("Which host do you want to connect to:"))
+number = int(input("Which host do you want to connect to: "))
 rootURL = host_list[number-1]
+
 print()
-sysusr = str(input("Enter your user id:"))
+sysusr = str(input("Enter your user id: "))
 print()
-syspwd = str(input("Enter your password:"))
+syspwd = str(input("Enter your password: "))
 print()
 sysorg = 'System'
 syslogin = "{0}@{1}".format(sysusr,sysorg)
+bearerToken = ""
+url = ""
+client = ""
 
-# setup client 
-client = urllib3.PoolManager(cert_reqs='CERT_REQUIRED', ca_certs=certifi.where())
-url = '{0}/api/sessions'.format(rootURL)
-basic = "{0}:{1}".format(syslogin, syspwd)
-base64string = b64encode(bytes(basic, 'utf-8')).decode("ascii")
-authheader =  "Basic %s" % base64string
-headers = { 'Authorization' : authheader, 'Accept' : 'application/json;version=34.0' }
+def login(rootURL):
+    # setup client 
+    client = urllib3.PoolManager(cert_reqs='CERT_REQUIRED', ca_certs=certifi.where())
+    url = '{0}/api/sessions'.format(rootURL)
+    basic = "{0}:{1}".format(syslogin, syspwd)
+    base64string = b64encode(bytes(basic, 'utf-8')).decode("ascii")
+    authheader =  "Basic %s" % base64string
+    headers = { 'Authorization' : authheader, 'Accept' : 'application/json;version=34.0' }
+    
+    # login 
+    response = client.request("POST", url, headers=headers)
+    # extract bearer token
+    token = response.headers.get('X-VMWARE-VCLOUD-ACCESS-TOKEN')
+    bearerToken =  "Bearer %s" % token
 
-# login 
-response = client.request("POST", url, headers=headers)
-status_code = response.status
-# extract bearer token
-token = response.headers.get('X-VMWARE-VCLOUD-ACCESS-TOKEN')
-bearerToken =  "Bearer %s" % token
+    return client, bearerToken
 
-# get list of rights bundles
-url = '{0}/cloudapi/1.0.0/rightsBundles?page=1&pageSize=25'.format(rootURL)
-headers = { 'Authorization' : bearerToken, 'Accept' : 'application/json;version=34.0' }
-response = client.request("GET", url, headers=headers)
-# parse the response
-data = json.loads(response._body.decode('UTF-8'))
+def get_rights(rootURL, bearerToken, client, context):
+    # get list of rights bundles
+    url = '{0}/cloudapi/1.0.0/{1}?page=1&pageSize=25'.format(rootURL,context)
+    headers = { 'Authorization' : bearerToken, 'Accept' : 'application/json;version=34.0' }
+    response = client.request("GET", url, headers=headers)
+    # parse the response
+    data = json.loads(response._body.decode('UTF-8'))
 
-# find the default bundle
-defaultid = ""
-for i in data['values']:
-    if i['name'] == 'Default Rights Bundle':
-        defaultid = i['id']
+    # find the default bundle
+    for x in range(len(data['values'])):
+        print(f"{x+1}: {data['values'][x]['name']}")
+    number = int(input("Which item do you want to view: ")) 
+    print()
 
-# get the rights from the bundle
-encid = requote_uri(defaultid)
-url = '{0}/cloudapi/1.0.0/rightsBundles/{1}/rights?page=1&pageSize=125'.format(rootURL,encid)
-headers = { 'Authorization' : bearerToken, 'Accept' : 'application/json;version=34.0' }
-response = client.request("GET", url, headers=headers)
-data = json.loads(response._body.decode('UTF-8'))
+    encid = requote_uri(data['values'][number-1]['id'])
+    
+    pagecount = 1
+    page = 1
+    rights_list = []
+    while(page):
+        # get the rights from the bundle
+        url = '{0}/cloudapi/1.0.0/{1}/{2}/rights?page={3}&pageSize=125'.format(rootURL,context,encid,page)
+        headers = { 'Authorization' : bearerToken, 'Accept' : 'application/json;version=34.0' }
+        response = client.request("GET", url, headers=headers)
+        data = json.loads(response._body.decode('UTF-8'))
+        pagecount = data['pageCount']
+        page = data['page']
+        
+        # get the rights
+        for i in data['values']:
+            name = i['name']
+            name = name.replace(",", "")
+            name = name.replace(": ", ",")
+            right = "{0},{1}".format(i['id'],name)
+            rights_list.append(right)
+        if page == pagecount:
+            page = 0
+        else:
+            page += 1
 
-# get the rights
-rights_list = []
-for i in data['values']:
-    right = "{0} == {1}".format(i['id'],i['name'])
-    rights_list.append(right)
+    # sort and print out the rights
+    rights_list.sort()
+    print(*rights_list, sep = "\n")
+    print(len(rights_list))
 
-# get the rights from the bundle - second page
-url = '{0}/cloudapi/1.0.0/rightsBundles/{1}/rights?page=2&pageSize=125'.format(rootURL,encid)
-headers = { 'Authorization' : bearerToken, 'Accept' : 'application/json;version=34.0' }
-response = client.request("GET", url, headers=headers)
-data = json.loads(response._body.decode('UTF-8'))
+def main():
+    client, bearerToken = login(rootURL)
+    print(f'1: Rights Bundles')
+    print(f'2: Global Roles')
+    whichone = int(input("Rights Bundles or Global Roles: "))
+    print()
 
-# get the rights
-for i in data['values']:
-    right = "{0} == {1}".format(i['id'],i['name'])
-    rights_list.append(right)
+    if whichone == 1:
+        get_rights(rootURL, bearerToken, client, "rightsBundles")
+    else:
+        get_rights(rootURL, bearerToken, client, "globalRoles")
 
-# sort and print out the rights
-rights_list.sort()
-print(*rights_list, sep = "\n")
-print(len(rights_list))
+if __name__ == '__main__':
+    main()
