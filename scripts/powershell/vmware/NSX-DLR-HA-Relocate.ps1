@@ -9,7 +9,7 @@
  of the stretch network so that in case of failover, its reachable.
  
 .EXAMPLE
-C:\tmp\NetworkHA-DLR.ps1 -username "mwiles@st.dir" -password "REDACTED"
+C:\tmp\NSX-DLR-HA-Relocate.ps1 -username "mwiles@st.dir" -password "REDACTED"
  
 .PARAMETER username
    username for the vcsa
@@ -41,8 +41,10 @@ $sourceResourcePoolName = "dal10-dir02-w02-DLRS"
 # where to move the DLR to - ResourcePool, Host, Datastore
 $targetDatastoreName = "workload_share_tC2RA_4"
 $targetDatastoreId = "datastore-4511"
-$targetHostName = "host013.sdal10w02.st.dir"
-$targetHostId = "host-6447"
+#$targetHostName = "host013.sdal10w02.st.dir"
+#$targetHostId = "host-6447"  
+$targetHostName = "" #leave blank as this is not required but we want to remove what is there
+$targetHostId = ""  #leave blank as this is not required but we want to remove what is there
 $targetResourcePoolName = "dal10-dir02-w02-work01-alloc01"
 $targetResourcePoolId = "resgroup-55760"
 
@@ -65,7 +67,7 @@ $nsxDLRs = Get-NsxLogicalRouter
 
 foreach ($sourceDLRVM in $sourceDLRVMs) 
 {
-   # remove the trailing "-0"
+   # remove the trailing "-0" or "-1"
    $sourceDLRVMName = $sourceDLRVM.Name
    Write-Output "Checking DLR $sourceDLRVMName"
    $splitstring = $sourceDLRVMName.Split("-")
