@@ -1,0 +1,4 @@
+ibmcloud login -sso -a https://cloud.ibm.com
+export token=$(ibmcloud iam oauth-tokens | awk '{print $4}')
+ibmcloud tg 
+ibmcloud tg cs <GATEWAYID>

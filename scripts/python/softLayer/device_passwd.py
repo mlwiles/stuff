@@ -1,3 +1,20 @@
+"""
+script: device_password.py
+description: gets list of all accessible bare metal machines - gets current root password
+author: Mike Wiles
+version: 0.1
+date: 04/30/2020
+
+python device_password.py
+
+Prereqs:
+Login to ibmcloud CLI, select your account 
+python3 device_password.py
+
+the output to the screen is XML
+it also creates a file in the same directory as the script `sl-hosts.xml`
+"""
+
 import re
 import subprocess
 serverlist = subprocess.Popen(['ibmcloud', 'sl', 'hardware', 'list'], 
