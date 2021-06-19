@@ -19,12 +19,12 @@
 #Create Cert
 $servercert=New-SelfSignedCertificate  `
  -CertStoreLocation cert:/LocalMachine/My `
- -DnsName "ADNSDALHa1M012.pr.dir"  `
+ -DnsName "hostname.vm"  `
  -NotAfter (Get-Date).AddYears(3) `
  -TextExtension @("2.5.29.37={text}1.3.6.1.5.5.7.3.1") `
- -KeyFriendlyName "ADNSDALHa1M012.pr.dir" `
+ -KeyFriendlyName "hostname.vm" `
  -KeyDescription "Used for LDAPS & SMTP-TLS" `
- -FriendlyName "ADNSDALHa1M012.pr.dir" 
+ -FriendlyName "hostname.vm" 
 
 #Grab Thumbprint
 $thumbprint=($servercert.Thumbprint | Out-String).Trim()

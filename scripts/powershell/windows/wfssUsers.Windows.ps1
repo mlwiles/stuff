@@ -45,7 +45,7 @@ $WFSSUsers = @(("jaylani-wfss", "Jaylani", "Sharif", "jaylani@us.ibm.com","REDAC
 ("mwiles-wfss", "Mike", "Wiles", "mwiles@us.ibm.com","REDACTED"))
 
 $WFSSPassword = "REDACTED"   ### NOTE ### the characters escaped in the password
-$WFSSDescription = "User created for Walls Fargo"
+$WFSSDescription = "User created for Customer access"
 $WindowsGroups = @("Users", "Remote Desktop Users")
 ####################################
 ###  EDIT ABOVE HERE FOR USERS  ####
