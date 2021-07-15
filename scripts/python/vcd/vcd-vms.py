@@ -57,7 +57,7 @@ def login(rootURL):
     return client, bearerToken
 
 def get_vms(rootURL, bearerToken, client):
-    # Retrieves a list of vdcs
+    # Retrieves a list of vms
     # /api/query?type=vm
     print("getting list of vms ... ")
     with open(filename, 'w') as fileout:
@@ -70,7 +70,7 @@ def get_vms(rootURL, bearerToken, client):
     more = 1
     total = 0
     while(more):
-        # get the vdcs
+        # get the vms
         url = '{0}/api/query?type=vm&page={1}&pageSize={2}&format=records'.format(rootURL,page,pagesize)
         print("url"+url)
         headers = { 'x-vcloud-authorization' : bearerToken, 'Accept' : 'application/*+json;version=34.0' }
