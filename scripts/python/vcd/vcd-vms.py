@@ -5,9 +5,9 @@
 # 	- Must be able to access host listed below
 
 # To run:
-#	- From command line, `python3 vdc-guarantee.py`
+#	- From command line, `python3 vdc-vms.py`
 # Expected output:
-#	csv ouput of vdc compute capacity
+#	csv ouput of vcd vm list
 # 
 from os import name
 import certifi, urllib3, json, getpass
