@@ -55,7 +55,6 @@ def login(rootURL):
     response = client.request("POST", url, headers=headers)
     # extract bearer token
     token = response.headers.get('x-vcloud-authorization')
-    print(token)
     bearerToken = token
     return client, bearerToken
 
@@ -64,18 +63,29 @@ def get_vdcs(rootURL, bearerToken, client):
     # /admin/extension/orgVdcs/query
     # https://code.vmware.com/apis/912/vmware-cloud-director/doc/doc/operations/GET-OrgVdcsAllFromQuery.html
     print("getting list of vdcs ... ")
-    # get the vdcs
-    url = '{0}/api/admin/extension/orgVdcs/query'.format(rootURL)
-    headers = { 'x-vcloud-authorization' : bearerToken, 'Accept' : 'application/*+json;version=34.0' }
-    response = client.request("GET", url, headers=headers)
-    data = json.loads(response._body.decode('UTF-8'))
-
     with open(filename, 'w') as fileout:
         fileout.write("name,allocationModel,cpu-allocated,cpu-limit,cpu-reserved,mem-allocated,mem-limit,mem-reserved")
         fileout.write("\n")      
-    for i in data['record']:
-        href = i['href']
-        get_vdc(href, bearerToken, client)
+
+    pagesize = 25
+    page = 1
+    more = 1
+    total = 0
+    while(more):
+        # get the vdcs
+        url = '{0}/api/admin/extension/orgVdcs/query?page={1}&pageSize={2}'.format(rootURL,page,pagesize)
+        headers = { 'x-vcloud-authorization' : bearerToken, 'Accept' : 'application/*+json;version=34.0' }
+        response = client.request("GET", url, headers=headers)
+        data = json.loads(response._body.decode('UTF-8'))
+        total = data['total']
+        print(total)
+        current = pagesize * page
+        if (current > total):
+           more = 0
+        page += 1
+        for i in data['record']:
+            href = i['href']
+            get_vdc(href, bearerToken, client)
 
 def get_vdc(href, bearerToken, client):
     # get vdc
