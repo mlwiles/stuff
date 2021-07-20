@@ -79,7 +79,7 @@ def get_datastores(rootURL, bearerToken, client):
     response = client.request("GET", url, headers=headers)
     data = json.loads(response._body.decode('UTF-8'))
     with open(filename, 'w') as fileout:
-        fileout.write("name,thresholdYellowGb,thresholdRedGb,usedCapacityGb,usedCapacityPercent,provisionedSpaceGb,requestedStorageGb,totalCapacityGb   ")
+        fileout.write("name,thresholdYellowGb,thresholdRedGb,usedCapacityGb,usedCapacityPercent,provisionedSpaceGb,requestedStorageGb,totalCapacityGb")
         fileout.write("\n")      
     for i in data['reference']:
         href = i['href']
@@ -89,11 +89,12 @@ def get_datastore(href, bearerToken, client):
     # get datastore
     # /admin/extension/datastore/{id}
     # https://vdc-download.vmware.com/vmwb-repository/dcr-public/71e12563-bc11-4d64-821d-92d30f8fcfa1/7424bf8e-aec2-44ad-be7d-b98feda7bae0/doc/doc/operations/GET-Datastore.html
-    # dump the contents of the datastores out to a CSV file
     print('getting datastore - {0}'.format(href))
     headers = { 'x-vcloud-authorization' : bearerToken, 'Accept' : 'application/*+json;version=34.0' }
     response = client.request("GET", href, headers=headers)
     data = json.loads(response._body.decode('UTF-8'))
+    red=0
+    yellow=0
     with open(filename, 'a') as fileout:
         fileout.write(data['name'])
         fileout.write(",")
@@ -111,15 +112,17 @@ def get_datastore(href, bearerToken, client):
         fileout.write(",")
         fileout.write(str(data['totalCapacityGb']))
         fileout.write("\n")
-    
-    set_datastore(href, data['name'], data['id'], bearerToken, client)
+        print("Total Capacity:" + str(data['totalCapacityGb']) + " (10% = " + str(int(.1 * data['totalCapacityGb'] + 1)) + ") (25% = " + str(int(.25 * data['totalCapacityGb'] + 1)) + ")")
+        red=int(.1 * data['totalCapacityGb'] + 1)
+        yellow=int(.25 * data['totalCapacityGb'] + 1)
+    set_datastore(href, data['name'], data['id'], red, yellow, bearerToken, client)
 
-def set_datastore(paramhref, paramname, paramid, parambearerToken, paramclient):
+def set_datastore(paramhref, paramname, paramid, paramred, paramyellow, parambearerToken, paramclient):
     # set datastore
     # /admin/extension/datastore/{id}
     # https://vdc-download.vmware.com/vmwb-repository/dcr-public/71e12563-bc11-4d64-821d-92d30f8fcfa1/7424bf8e-aec2-44ad-be7d-b98feda7bae0/doc/doc/operations/PUT-Datastore.html
-    # set all thresholds for YELLOW = 1000GB, RED = 500GB
     print('updating datastore - {0}'.format(paramhref))
+    print('params - {0},{1},{2},{3},{4}'.format(paramname, paramid, paramhref, paramred, paramyellow))
     headers = { 'x-vcloud-authorization' : parambearerToken, 'Content-Type' : 'application/vnd.vmware.admin.datastore+xml', 'Accept' : 'application/vnd.vmware.admin.datastore+xml;version=34.0' }
     data = """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
               <vmext:Datastore xmlns="http://www.vmware.com/vcloud/v1.5" 
@@ -135,12 +138,14 @@ def set_datastore(paramhref, paramname, paramid, parambearerToken, paramclient):
                                id="urn:vcloud:datastore:{hereid}" 
                                href="{herehref}" 
                                type="application/vnd.vmware.admin.datastore+xml">
-                  <vmext:ThresholdYellowGb>1000</vmext:ThresholdYellowGb>
-                  <vmext:ThresholdRedGb>500</vmext:ThresholdRedGb>
+                  <vmext:ThresholdYellowGb>{hereyellow}</vmext:ThresholdYellowGb>
+                  <vmext:ThresholdRedGb>{herered}</vmext:ThresholdRedGb>
               </vmext:Datastore>"""
 
-    data.format(herename=paramname, hereid=paramid, herehref=paramhref)
-    response = paramclient.request("PUT", paramhref, body=data, headers=headers)
+    databody=data.format(herename=paramname, hereid=paramid, herehref=paramhref, herered=paramred, hereyellow=paramyellow)
+    print(databody)
+    response = paramclient.request("PUT", paramhref, body=databody, headers=headers)
+    print(response.status)
 
 def main():
     client, bearerToken = login(rootURL)
