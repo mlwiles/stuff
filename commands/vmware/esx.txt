@@ -4,3 +4,8 @@ esxcfg-advcfg -g /BufferCache/MaxCapacity
 esxcfg-advcfg -g /BufferCache/FlushInterval
 esxcfg-advcfg -s 32768 /BufferCache/MaxCapacity
 esxcfg-advcfg -s 20000 /BufferCache/FlushInterval
+
+# collect logs for vmware
+cd /vmfs/volumes/datastoreXYZ
+crypto-util keys vm-support --password prolog
+vm-support
