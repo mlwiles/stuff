@@ -9,7 +9,8 @@ delete from gateway_interface where logical_network_id = '6f4f81a8-9b2b-48f0-b13
 select * from gateway_assigned_ip where gateway_interface_id = '4ed1754a-5097-4a7e-8f1e-fc8c3c1c4be0'
 delete from gateway_assigned_ip where gateway_interface_id = '4ed1754a-5097-4a7e-8f1e-fc8c3c1c4be0'
 
---------
+----------------------------------------------------------------------
+
 select * from logical_network_ip_scope where scope_id = '537027f0-1dc3-4eac-900e-061a46110fb2'
 select * from logical_network_ip_scope where scope_id in (select id from ip_scope where gateway = '192.168.20.1' and dns1 = '161.26.0.10')
 
@@ -36,3 +37,13 @@ select * from vapp_logical_resource where name = 'template-test-network'
 "id"	"vapp_id"	"fo_handle_id"	"lr_type"	"fo_id"	"name"	"version_number"
 "d3d103ec-d313-49f0-ac5c-4ce25bdaa8ad"	"cf1cbc8b-0b82-4240-b443-eb0bfc768e04"	"3a73c259-2263-4586-bbb4-1b3e7b05c064"	"NETWORK"	"2f1057e9-bd32-41da-9039-f6c739a111d8"	"template-test-network"	1
 "8ff39ca5-ba90-434d-940f-ccf05e18fd81"	"97489e80-77d4-479c-b6a6-cbda3b648e17"	"39abd0d4-100e-45ea-bebd-dd59416c8e63"	"NETWORK"	"21850c1f-2f1a-4571-8c10-46629fb7c77e"	"template-test-network"	1	
+
+----------------------------------------------------------------------
+
+select * from global_search('82e16b8b-08a0-43fa-a5d6-c657ce778daf');
+select * from network_fabric_handle where fo_id = '82e16b8b-08a0-43fa-a5d6-c657ce778daf';
+select * from shared_org_vdc_network where lr_id = '21bd0bb8-3961-4944-9830-c461496720a2';
+select * from tenant_network_logical_resource where lnet_id =  '82e16b8b-08a0-43fa-a5d6-c657ce778daf';
+select * from shared_org_vdc_network where lr_id = 'd0d4911d-e906-4290-9193-4b53eadf7d0c';
+delete from network_fabric_handle where fo_id = '82e16b8b-08a0-43fa-a5d6-c657ce778daf';
+delete from tenant_network_logical_resource where lnet_id =  '82e16b8b-08a0-43fa-a5d6-c657ce778daf';
