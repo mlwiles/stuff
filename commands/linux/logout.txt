@@ -1,5 +1,0 @@
-# ==================================================
-#    determine who is logged in and log them out
-# ==================================================
-who (list logged in sessions)
-pkill -9 -t pts/0  (log them out)

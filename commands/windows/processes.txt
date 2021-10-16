@@ -1,7 +1,0 @@
-#Get instances of processes by name
-Get-CimInstance Win32_Process -Filter "name = 'powershell.exe'"
-
-#tasklist of processes by name and owners
-tasklist /fi "ImageName eq powershell.exe"
-#See who is logged in
-quser 

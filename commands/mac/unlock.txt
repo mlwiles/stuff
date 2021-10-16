@@ -1,4 +1,0 @@
-# ==================================================
-#    unlock the allow all applications to be ran
-# ==================================================
-sudo spctl --master-disable
